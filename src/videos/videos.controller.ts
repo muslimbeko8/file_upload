@@ -33,7 +33,7 @@ export class VideosController {
 
   @Post()
   @UseInterceptors(
-    FileInterceptor('video', {
+    FileInterceptor('file', {
       storage,
     }),
   )
@@ -41,11 +41,12 @@ export class VideosController {
     @UploadedFile() video: Express.Multer.File,
     @Body() createVideoDto: CreateVideoDto,
   ) {
+    console.log(video);
     if (!video) {
       throw new BadRequestException('Fayl yuklanmadi');
     }
 
-    createVideoDto.video = video.filename;
+    createVideoDto.file = video.filename;
 
     const savedVideo = await this.videosService.create(createVideoDto);
 
@@ -74,7 +75,7 @@ export class VideosController {
     @Body() updateVideoDto: UpdateVideoDto,
   ) {
     if (video) {
-      updateVideoDto.video = video.filename;
+      updateVideoDto.file = video.filename;
     }
 
     const updatedVideo = await this.videosService.update(+id, updateVideoDto);

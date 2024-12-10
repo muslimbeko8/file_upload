@@ -8,11 +8,11 @@ import {
   BelongsTo,
 } from 'sequelize-typescript';
 
-@Table({ tableName: 'videos' })
-export class Videos extends Model<Videos> {
+@Table({ tableName: 'files' })
+export class File extends Model<File> {
   @AllowNull(false)
   @Column({
     type: DataType.STRING,
   })
-  video: string;
+  file: string;
 }

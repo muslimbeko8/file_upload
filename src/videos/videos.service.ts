@@ -2,17 +2,15 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateVideoDto } from './dto/create-video.dto';
 import { UpdateVideoDto } from './dto/update-video.dto';
 import { InjectModel } from '@nestjs/sequelize';
-import { Videos } from './videos.model';
+import { File } from './videos.model';
 
 @Injectable()
 export class VideosService {
-  constructor(
-    @InjectModel(Videos) private readonly videoModel: typeof Videos,
-  ) {}
+  constructor(@InjectModel(File) private readonly videoModel: typeof File) {}
   create(createVideoDto: CreateVideoDto) {
     this.videoModel.create(createVideoDto);
 
-    return `http://localhost:3000/static/${createVideoDto.video}`;
+    return `http://localhost:3000/static/${createVideoDto.file}`;
   }
 
   findAll() {
@@ -23,7 +21,7 @@ export class VideosService {
     return this.videoModel.findByPk(id);
   }
 
-  async update(id: number, updateVideoDto: UpdateVideoDto) {
+  async update(id: number, updateVideoDto) {
     const [updated] = await this.videoModel.update(updateVideoDto, {
       where: { id },
     });

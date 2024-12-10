@@ -1,3 +1,3 @@
 export class CreateVideoDto {
-  video: string;
+  file: string;
 }
